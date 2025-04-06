@@ -113,11 +113,26 @@
     <p>Welcome to the cosmic gateway. Explore the universe with us.</p>
     <div id="galaxy-content">
       <p>Journey through stars, planets, and distant galaxies.</p>
-      <a href="/motd" class="cosmic-button">Message of the Day</a>
+      <button class="cosmic-button" onclick="getMOTD()">Message of the Day</button>
+      <div id="motd"></div>
     </div>
   </div>
 
   <script>
+    async function getMOTD() {
+      const motdDiv = document.getElementById("motd");
+      motdDiv.innerText = "🔍 Menjelajahi alam semesta...";
+      try {
+        const response = await fetch("/motd");
+        const html = await response.text();
+        document.open();
+        document.write(html);
+        document.close();
+      } catch (error) {
+        motdDiv.innerText = "⚠️ Sedang tidak bisa menjelajahi. Coba lagi nanti ya.";
+        console.error(error);
+      }
+    }
     function createStars() {
       const starsContainer = document.getElementById('stars');
       const starCount = 150;
@@ -129,7 +144,9 @@
         const left = Math.random() * 100;
         const top = Math.random() * 100;
         
+
         const size = Math.random() * 3;
+        
 
         const delay = Math.random() * 5;
         
@@ -138,6 +155,7 @@
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
         star.style.animationDelay = `${delay}s`;
+        
         starsContainer.appendChild(star);
       }
     }

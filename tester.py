@@ -6,12 +6,13 @@ import json
 
 users = {
     "sister": "ii2210_sister_astro123",
-    "naila": "ii2210_cosmic456"
+    "naila1167": "ii2210_cosmic456"
 }
 
 server_url = "http://57.155.90.211:17787/motd"
 
 motd_list = [
+    
     "The universe speaks in many ways, through stars, planets, and cosmic whispers. Listen closely to hear its guidance.",
     "Today's cosmic alignment suggests a time of reflection. Look within to find the answers you seek among the stars.",
     "The gravitational pull of your dreams is stronger than you think. Let it guide your journey through the cosmos.",
@@ -27,6 +28,7 @@ motd_list = [
     "Like distant galaxies expanding, your consciousness is always growing. Nurture its development with new experiences.",
     "The light of distant stars takes years to reach us. Your actions today may not show results immediately, but patience will reveal their brilliance.",
     "Quantum entanglement reminds us that once connected, two particles remain influenced by each other regardless of distance. Choose your connections wisely."
+
 ]
 
 
@@ -42,7 +44,8 @@ for userid, shared_secret in users.items():
         headers = {
             "Authorization": f"Basic {auth_encoded}"
         }
+        print(motd)
 
-        response = requests.post(url=server_url, headers=headers, json={"motd": motd})
+        response = requests.post(url=server_url, headers=headers, json={"content": motd})
         print(response.content.decode("utf-8"))
         time.sleep(1)

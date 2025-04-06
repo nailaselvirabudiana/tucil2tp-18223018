@@ -33,10 +33,9 @@ security = HTTPBasic()
 # Template setup
 templates = Jinja2Templates(directory=".")
 
-# User dan shared secret
 users = {
     "sister": "ii2210_sister_astro123",
-    "naila": "ii2210_cosmic456"
+    "naila1167": "ii2210_cosmic456"
 }
 
 @app.get("/", response_class=HTMLResponse)
@@ -48,7 +47,7 @@ async def root():
 @app.get("/motd", response_class=HTMLResponse)
 async def get_motd(request: Request, session: SessionDep):
     result = session.exec(select(MOTD)).all()
-    motd_message = random.choice(result).motd if result else "Belum ada MOTD"
+    motd_message = random.choice(result).content if result else "Belum ada MOTD"
     return templates.TemplateResponse("motd.html", {"request": request, "motd": motd_message})
 
 @app.post("/motd")
@@ -64,11 +63,12 @@ async def post_motd(message: MOTDBase, session: SessionDep, credentials: Annotat
             valid_password = secrets.compare_digest(current_password_bytes, totp.now().encode("utf8"))
 
             if valid_password and valid_username:
-                new_motd = MOTD(motd=message.motd, creator=credentials.username)
+                # new_motd = MOTD(motd=message.content, creator=credentials.username)
+                new_motd = MOTD(content=message.content)
                 session.add(new_motd)
                 session.commit()
                 session.refresh(new_motd)
-                return {"id": new_motd.id, "text": new_motd.motd}
+                return {"id": new_motd.id, "text": new_motd.content}
             else:
                 raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid userid or password.")
         else:
@@ -77,6 +77,8 @@ async def post_motd(message: MOTDBase, session: SessionDep, credentials: Annotat
     except HTTPException as e:
         raise e
 
+
+create_db_and_tables()
+
 if __name__ == "__main__":
-    create_db_and_tables()
     uvicorn.run("main:app", host="0.0.0.0", port=17787, reload=True)
