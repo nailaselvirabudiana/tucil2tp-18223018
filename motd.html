@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Message of the Day</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0b0b35;
+      color: #a3b8ff;
+      text-align: center;
+      overflow: hidden;
+      background-image: radial-gradient(circle at 30% 50%, rgba(50, 50, 150, 0.2), transparent),
+                        radial-gradient(circle at 70% 50%, rgba(50, 50, 150, 0.2), transparent);
+    }
+    
+    .container {
+      background: rgba(20, 20, 60, 0.7);
+      padding: 50px 30px;
+      max-width: 700px;
+      margin: 50px auto;
+      border-radius: 25px;
+      box-shadow: 0 0 30px rgba(100, 100, 255, 0.2);
+      backdrop-filter: blur(5px);
+    }
+    
+    h1 {
+      font-size: 2.8em;
+      font-weight: 600;
+      color: #8ca6ff;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+    }
+    
+    p {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+    
+    .motd {
+      font-size: 1.8em;
+      color: #8ca6ff;
+      margin: 40px 0;
+      line-height: 1.4;
+      padding: 0 20px;
+      background: rgba(15, 15, 45, 0.5);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(50, 50, 150, 0.3);
+      display: inline-block;
+      position: relative;
+    }
+    
+    .motd::before, .motd::after {
+      content: "";
+      font-size: 3em;
+      position: absolute;
+      opacity: 0.3;
+    }
+    
+    .motd::before {
+      top: -0.5em;
+      left: 0.1em;
+    }
+    
+    .motd::after {
+      bottom: -0.8em;
+      right: 0.1em;
+      transform: rotate(180deg);
+    }
+    
+    .back-button {
+      background-color: #6b68ca;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 30px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .back-button:hover {
+      background-color: #8683e6;
+      box-shadow: 0 0 15px #8683e6;
+      transform: translateY(-3px);
+    }
+    
+    .star {
+      position: absolute;
+      background-color: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    
+    .cosmic-date {
+      font-size: 1em;
+      color: #6b7fff;
+      margin-top: 20px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Message of the Day</h1>
+    <p>Welcome to your cosmic journey. Each day brings new discoveries.</p>
+    <div class="motd" id="message-container">
+      {{ motd }}
+    </div>
+    <div class="cosmic-date" id="current-date">Stardate: Unknown</div>
+    <br><br>
+    <a href="/" class="back-button">Return to Portal</a>
+  </div>
+
+  <script>
+    function createStars() {
+      const starCount = 150;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        
+        const size = Math.random() * 2 + 1;
+        
+        const delay = Math.random() * 5;
+        
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDelay = `${delay}s`;
+        
+        document.body.appendChild(star);
+      }
+    }
+    
+    function setCosmicDate() {
+      const now = new Date();
+      const stardate = (now.getFullYear() - 2000) * 1000 + (now.getMonth() + 1) * 100 + now.getDate();
+      document.getElementById('current-date').innerText = `Stardate: ${stardate}.${now.getHours()}`;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      createStars();
+      setCosmicDate();
+    });
+  </script>
+</body>
+</html>

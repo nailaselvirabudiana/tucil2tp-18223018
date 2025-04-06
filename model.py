@@ -1,10 +1,8 @@
-from sqlmodel import Field, SQLModel
-from datetime import datetime
+from sqlmodel import SQLModel, Field
+from typing import Optional
 
 class MOTDBase(SQLModel):
-    motd: str
+    content: str
 
 class MOTD(MOTDBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
-    creator: str
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    id: Optional[int] = Field(default=None, primary_key=True)

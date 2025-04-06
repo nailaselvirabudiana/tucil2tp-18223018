@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Messages from Universe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0a0a2a, #1f1f5c, #2e2e8a, #000000);
+      background-size: 300% 300%;
+      animation: galaxy-pulse 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      color: #e0e7ff;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    @keyframes galaxy-pulse {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .star {
+      position: absolute;
+      background-color: #ffffff;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; }
+      100% { opacity: 0.2; }
+    }
+    
+    .card {
+      background: rgba(10, 10, 42, 0.7);
+      padding: 50px 30px;
+      border-radius: 25px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(100, 100, 255, 0.3);
+      backdrop-filter: blur(5px);
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      z-index: 1;
+      border: 1px solid rgba(100, 100, 255, 0.2);
+    }
+    
+    h1 {
+      font-size: 2.2em;
+      font-weight: 600;
+      color: #a2d6ff;
+      margin-bottom: 0.4em;
+      text-shadow: 0 0 10px rgba(162, 214, 255, 0.5);
+    }
+    
+    .planet {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #7b68ee, #4b0082);
+      box-shadow: 0 0 20px #7b68ee;
+      position: absolute;
+      animation: orbit 60s linear infinite;
+    }
+    
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(170px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(170px) rotate(-360deg); }
+    }
+    
+    .cosmic-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 28px;
+      background: linear-gradient(45deg, #3f51b5, #7986cb);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid rgba(100, 100, 255, 0.3);
+    }
+    
+    .cosmic-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(100, 100, 255, 0.4);
+      background: linear-gradient(45deg, #5c6bc0, #9fa8da);
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="card">
+    <div class="planet"></div>
+    <h1>Messages from Universe</h1>
+    <p>Welcome to the cosmic gateway. Explore the universe with us.</p>
+    <div id="galaxy-content">
+      <p>Journey through stars, planets, and distant galaxies.</p>
+      <a href="/motd" class="cosmic-button">Message of the Day</a>
+    </div>
+  </div>
+
+  <script>
+    function createStars() {
+      const starsContainer = document.getElementById('stars');
+      const starCount = 150;
+      
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        
+        const size = Math.random() * 3;
+
+        const delay = Math.random() * 5;
+        
+        star.style.left = `${left}%`;
+        star.style.top = `${top}%`;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDelay = `${delay}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', createStars);
+  </script>
+</body>
+</html>
